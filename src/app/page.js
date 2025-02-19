@@ -1,4 +1,4 @@
-'use client'; // 需要客户端交互的组件
+'use client';
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
@@ -6,33 +6,65 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import 'swiper/css';
 
+// 添加基础路径常量
+const BASE_PATH = process.env.NODE_ENV === 'production' 
+  ? '/3guys.github.io' 
+  : '';
+
 export default function Home() {
   const [language, setLanguage] = useState('zh');
   const [selectedImage, setSelectedImage] = useState(null);
 
-  // 轮播图数据
+  // 轮播图数据（添加基础路径）
   const banners = [
-    '/images/美瞳/banner1.jpg',
-    '/images/美瞳/banner2.jpg',
-    '/images/美瞳/banner3.jpg',
+    `${BASE_PATH}/images/美瞳/banner1.jpg`,
+    `${BASE_PATH}/images/美瞳/banner2.jpg`,
+    `${BASE_PATH}/images/美瞳/banner3.jpg`,
   ];
 
-  // 内容数据
+  // 内容数据（添加基础路径）
   const contentData = {
     zh: {
       sections: [
-        { title: '热门美瞳推荐', images: Array(8).fill('/images/美瞳/banner2.jpg') },
-        { title: '当季流行服饰', images: Array(8).fill( '/images/美瞳/banner2.jpg',) },
-        { title: '精选鞋款', images: Array(8).fill( '/images/美瞳/banner3.jpg',) }
+        { 
+          title: '热门美瞳推荐', 
+          images: Array(8).fill(`${BASE_PATH}/images/美瞳/banner2.jpg`) 
+        },
+        { 
+          title: '当季流行服饰',
+          images: Array(8).fill(`${BASE_PATH}/images/美瞳/banner2.jpg`) 
+        },
+        { 
+          title: '精选鞋款',
+          images: Array(8).fill(`${BASE_PATH}/images/美瞳/banner3.jpg`) 
+        }
       ]
     },
     en: {
       sections: [
-        { title:'Top Contact Lenses', images: Array(8).fill( '/images/美瞳/banner1.jpg',) },
-        { title: 'Fashion Clothing', images: Array(8).fill( '/images/美瞳/banner2.jpg',) },
-        { title:  'Featured Shoes', images: Array(8).fill( '/images/美瞳/banner3.jpg',) }
+        { 
+          title: 'Top Contact Lenses',
+          images: Array(8).fill(`${BASE_PATH}/images/美瞳/banner1.jpg`) 
+        },
+        { 
+          title: 'Fashion Clothing',
+          images: Array(8).fill(`${BASE_PATH}/images/美瞳/banner2.jpg`) 
+        },
+        { 
+          title: 'Featured Shoes',
+          images: Array(8).fill(`${BASE_PATH}/images/美瞳/banner3.jpg`) 
+        }
       ]
     }
+  };
+
+  // 修改后的图片点击处理
+  const handleImageClick = (imgPath) => {
+    // 生产环境需要移除基础路径
+    const actualPath = process.env.NODE_ENV === 'production'
+      ? imgPath.replace(BASE_PATH, '')
+      : imgPath;
+    setSelectedImage(actualPath);
   };
 
   return (
@@ -71,7 +103,7 @@ export default function Home() {
                 <div 
                   key={imgIndex}
                   className="group relative cursor-zoom-in"
-                  onClick={() => setSelectedImage(img)}
+                  onClick={() => handleImageClick(img)}
                 >
                   <div className="aspect-square overflow-hidden rounded-lg shadow-lg">
                     <img
