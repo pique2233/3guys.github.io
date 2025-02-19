@@ -1,20 +1,20 @@
 import { GlobeAltIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
-export default function Navbar({ language, setLanguage }) {
-  // 修正后的路径映射
+export default function Navbar({ language, setLanguage, basePath }) {
+  // 带基础路径的导航配置
   const navConfig = {
     en: [
-      { label: 'Contact Lenses', path: '/' },      // 首页
-      { label: 'Clothing', path: '/clothing' },    // 服装页
-      { label: 'Shoes', path: '/shoes' },          // 鞋类页
-      { label: 'Bags', path: '/bags' }             // 箱包页
+      { label: 'Contact Lenses', path: `${basePath}/` },
+      { label: 'Clothing', path: `${basePath}/clothing` },
+      { label: 'Shoes', path: `${basePath}/shoes` },
+      { label: 'Bags', path: `${basePath}/bags` }
     ],
     zh: [
-      { label: '美瞳', path: '/' },               // 首页
-      { label: '服装', path: '/clothing' },
-      { label: '鞋', path: '/shoes' },
-      { label: '包', path: '/bags' }
+      { label: '美瞳', path: `${basePath}/` },
+      { label: '服装', path: `${basePath}/clothing` },
+      { label: '鞋', path: `${basePath}/shoes` },
+      { label: '包', path: `${basePath}/bags` }
     ]
   };
 
@@ -26,7 +26,7 @@ export default function Navbar({ language, setLanguage }) {
             {navConfig[language].map((item) => (
               <Link
                 key={item.path}
-                href={item.path}
+                href={item.path.replace('//', '/')} // 处理双斜杠问题
                 className="text-gray-700 hover:text-purple-600 transition-colors font-medium"
               >
                 {item.label}
