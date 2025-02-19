@@ -2,20 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* 自定义动画 */
+@keyframes scaleUp {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.hover-scale {
+  transition: transform 0.3s ease;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #9333ea !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #9333ea !important;
 }

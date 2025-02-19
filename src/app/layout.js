@@ -7,22 +7,22 @@ export const metadata = {
   description: '专业美瞳销售平台',
 }
 
-// 基础路径配置（与 next.config.js 保持一致）
-const BASE_PATH = process.env.NODE_ENV === 'production' 
-  ? '/3guys.github.io' 
-  : ''
-
 export default function RootLayout({ children }) {
+  // 生产环境基础路径配置
+  const basePath = process.env.NODE_ENV === 'production' 
+    ? '/3guys.github.io' 
+    : ''
+
   return (
-    <html lang={process.env.NODE_ENV === 'production' ? 'zh-CN' : 'en'}>
+    <html lang="zh-CN">
       <head>
-        {/* 修复 CSS 路径 */}
-        <link rel="stylesheet" href={`${BASE_PATH}/globals.css`} />
+        {/* 确保 CSS 路径正确 */}
+        <link rel="stylesheet" href={`${basePath}/globals.css`} />
       </head>
       <body className="min-h-screen flex flex-col">
-        <Navbar basePath={BASE_PATH} />
+        <Navbar basePath={basePath} />
         <main className="flex-1">{children}</main>
-        <Footer basePath={BASE_PATH} />
+        <Footer basePath={basePath} />
       </body>
     </html>
   )
